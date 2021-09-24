@@ -24,26 +24,23 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800 pb-12">
-      <header className="pt-12 pb-20 px-6 sm:px-6 lg:px-8">
-        <FaBible className="mx-auto text-6xl text-sky-600 dark:text-gray-50" />
-        <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-900 dark:text-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-100 pb-12">
+      <header className="bg-gray-900 pt-12 pb-20 px-6 sm:px-6 lg:px-8 space-y-4 rounded-b-lg shadow-sm">
+        <FaBible className="mx-auto text-6xl text-gray-100" />
+        <h1 className="text-3xl pb-8 text-center font-extrabold text-gray-100">
           Betel Músicas
         </h1>
-        <p className="text-center text-sm text-gray-600 dark:text-gray-50">
-          Você adora e a Som Livre toca
-        </p>
 
-        <div className="relative mt-8 rounded-md bg-white dark:bg-gray-700 border dark:border-none shadow-sm w-full sm:max-w-lg mx-auto">
+        <div className="relative rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500 dark:text-gray-200">
+            <span className="text-gray-500">
               <FaSearch />
             </span>
           </div>
           <input
             type="text"
             placeholder="Pesquisar por música"
-            className="py-2 dark:text-gray-50 focus:ring-0 outline-none block dark:bg-gray-700 w-full pl-10 pr-3 rounded-md"
+            className="py-2 focus:ring-0 outline-none block w-full pl-10 pr-3 rounded-md"
           />
         </div>
       </header>

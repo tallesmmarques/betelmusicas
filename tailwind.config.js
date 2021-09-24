@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   mode: 'jit',
   purge: ['./src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false,
+  darkMode: 'off',
   theme: {
     fontSize: {
       xs: '0.75rem',
