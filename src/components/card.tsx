@@ -17,7 +17,7 @@ const Card: React.FC<{ music: IMusic }> = ({ music }) => {
               : 'bg-gray-500'
           }`}
         ></div>
-        <div className="flex-1 p-3 pl-6">
+        <div className="flex-1 p-1 pl-6">
           <p
             className={`text-sm font-bold ${
               gendersColors[music.gender][1]

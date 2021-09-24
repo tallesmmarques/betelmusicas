@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 
 import { AppConfig } from '../utils/AppConfig';
 
-type IMetaProps = {
+interface IMetaProps {
   title: string;
   description: string;
   canonical?: string;
-};
+}
 
-const Meta = (props: IMetaProps) => {
+const Meta: React.FC<IMetaProps> = ({ title, description, canonical }) => {
   const router = useRouter();
 
   return (
@@ -48,13 +48,13 @@ const Meta = (props: IMetaProps) => {
         />
       </Head>
       <NextSeo
-        title={props.title}
-        description={props.description}
-        canonical={props.canonical}
+        title={title}
+        description={description}
+        canonical={canonical}
         openGraph={{
-          title: props.title,
-          description: props.description,
-          url: props.canonical,
+          title,
+          description,
+          url: canonical,
           locale: AppConfig.locale,
           site_name: AppConfig.site_name,
         }}
