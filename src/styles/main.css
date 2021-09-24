@@ -12,10 +12,56 @@ a:hover {
 
 @tailwind utilities;
 
-.content p {
-  @apply my-6;
+.field {
+  @apply w-full;
+}
+.field input , .field select {
+  @apply w-full px-3 py-2 mt-1 border rounded shadow-sm bg-white
+  border-gray-300 placeholder-gray-500 text-gray-900
+  focus:outline-none focus:ring-sky-500
+  focus:border-sky-500 focus:z-10 sm:text-sm;
+}
+.field label {
+  @apply block text-sm text-gray-600 font-medium;
 }
 
-.content ul {
-  @apply my-6;
+.search {
+  @apply w-full relative shadow-sm bg-white;
+}
+.search input {
+  @apply w-full px-3 bg-white pl-6
+ placeholder-gray-500 text-gray-900 focus:outline-none
+}
+
+.btn {
+  @apply relative w-full flex justify-center
+  px-4 py-2 rounded-md text-sm font-semibold;
+}
+.btn-primary {
+  @apply bg-sky-600 hover:bg-sky-700 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-sky-500;
+}
+.btn-secondary {
+  @apply bg-red-600 hover:bg-red-700 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-red-500;
+}
+.btn-info {
+  @apply bg-amber-500 hover:bg-amber-600 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-amber-400;
+}
+
+.badge {
+  @apply ml-2 px-3 py-px font-medium rounded-full text-xs
+}
+.badge-blue {
+  @apply bg-blue-100 text-blue-600
+}
+.badge-red {
+  @apply bg-red-100 text-red-500
+}
+.badge-green {
+  @apply bg-green-100 text-green-600
 }

@@ -1,6 +1,6 @@
 export const AppConfig = {
-  site_name: 'Starter',
-  title: 'Nextjs Starter',
-  description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',
-  locale: 'en',
+  site_name: 'Betel Músicas',
+  title: 'Betel Músicas',
+  description: 'Gerenciamento de louvores e eventos para igrejas',
+  locale: 'pt-br',
 };
