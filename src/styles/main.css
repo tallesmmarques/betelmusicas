@@ -13,7 +13,7 @@ a:hover {
 @tailwind utilities;
 
 .field {
-  @apply w-full;
+  @apply w-full overflow-auto;
 }
 .field input , .field select {
   @apply w-full px-3 py-2 mt-1 border rounded shadow-sm bg-white
@@ -47,6 +47,13 @@ a:hover {
   focus:outline-none focus:ring-2 focus:ring-offset-2
   focus:ring-red-500;
 }
+.btn-delete {
+  @apply relative flex items-center justify-center
+  px-4 rounded-md text-lg font-semibold
+  bg-gray-600 hover:bg-gray-700 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-gray-500;
+}
 .btn-info {
   @apply bg-amber-500 hover:bg-amber-600 text-white
   focus:outline-none focus:ring-2 focus:ring-offset-2
@@ -54,7 +61,7 @@ a:hover {
 }
 
 .badge {
-  @apply ml-2 px-3 py-px font-medium rounded-full text-xs
+  @apply ml-2 px-3 py-px font-medium rounded-full text-xs mb-1
 }
 .badge-blue {
   @apply bg-blue-100 text-blue-600
@@ -67,8 +74,8 @@ a:hover {
 }
 
 .app-bar {
-  @apply fixed inset-x-0 bottom-0 p-2 pt-3 
-  bg-sky-700
+  @apply fixed inset-x-0 bottom-0 p-2 pt-3
+  bg-sky-700 w-full sm:max-w-lg mx-auto rounded-t-md
   flex items-stretch justify-around
 }
 .app-btn {

@@ -26,7 +26,7 @@ const Main: React.FC<IMainProps> = ({ meta, children }) => (
             <span>Músicas</span>
           </button>
         </Link>
-        <Link href="music/create" passHref>
+        <Link href="/music/create" passHref>
           <button className="app-btn">
             <FaPlusSquare />
             <span>Criar Música</span>
