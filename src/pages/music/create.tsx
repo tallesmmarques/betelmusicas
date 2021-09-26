@@ -1,9 +1,12 @@
+import React, { useState } from 'react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { FaMusic } from 'react-icons/fa';
 import { IoFlash } from 'react-icons/io5';
 
+import SearchMusic from '../../components/searchMusic';
 import { Meta } from '../../layout/Meta';
 import api from '../../services/api';
 import { Main } from '../../templates/Main';
@@ -19,7 +22,8 @@ type FormData = {
 };
 
 const CreateMusic = () => {
-  const { register, handleSubmit } = useForm();
+  const [isSearch, setIsSearch] = useState(false);
+  const { register, handleSubmit, setValue } = useForm();
   const router = useRouter();
 
   const onSubmit = (data: FormData) => {
@@ -35,6 +39,18 @@ const CreateMusic = () => {
       router.push(`/`);
     });
     // .catch((err) => console.log(err));
+  };
+  const closeSearch = () => {
+    setIsSearch(false);
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+  };
+  const openSearch = () => {
+    setIsSearch(true);
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.position = 'fixed';
   };
 
   return (
@@ -70,6 +86,7 @@ const CreateMusic = () => {
                   <input {...register('name')} type="text" />
                   <button
                     type="button"
+                    onClick={openSearch}
                     className="btn-info group mt-1 relative flex justify-center items-center px-3 rounded-md"
                   >
                     <IoFlash className="text-lg" />
@@ -163,6 +180,11 @@ const CreateMusic = () => {
             </div>
           </form>
         </div>
+        <SearchMusic
+          close={closeSearch}
+          setValue={setValue}
+          isOpen={isSearch}
+        />
       </div>
     </Main>
   );

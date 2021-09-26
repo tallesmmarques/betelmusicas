@@ -14,7 +14,7 @@ interface IMainProps {
 }
 
 const Main: React.FC<IMainProps> = ({ meta, children }) => (
-  <div className="antialiased min-h-screen w-full text-gray-50">
+  <div className="antialiased min-h-screen w-screen text-gray-50">
     {meta}
 
     <div className="">

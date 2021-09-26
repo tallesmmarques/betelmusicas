@@ -3,7 +3,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Link from 'next/link';
-import { FaGuitar, FaYoutube } from 'react-icons/fa';
+import { FaAngleDown, FaGuitar, FaYoutube } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
 
 import { IMusic } from '../types';

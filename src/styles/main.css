@@ -59,6 +59,11 @@ a:hover {
   focus:outline-none focus:ring-2 focus:ring-offset-2
   focus:ring-amber-400;
 }
+.btn-none {
+  @apply bg-gray-500 hover:bg-gray-600 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-gray-400;
+}
 
 .badge {
   @apply ml-2 px-3 py-px font-medium rounded-full text-xs mb-1
@@ -74,13 +79,13 @@ a:hover {
 }
 
 .app-bar {
-  @apply fixed inset-x-0 bottom-0 p-2 pt-3
+  @apply fixed inset-x-0 bottom-0
   bg-sky-700 w-full sm:max-w-lg mx-auto rounded-t-md
   flex items-stretch justify-around
 }
 .app-btn {
   @apply flex-1 text-lg text-gray-50
-  flex items-center flex-col
+  flex items-center flex-col p-2 pt-3
 }
 .app-btn span {
   @apply font-light text-2xs pt-2
