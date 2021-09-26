@@ -30,7 +30,7 @@ const SearchMusic: React.FC<Props> = ({ isOpen, close, setValue }) => {
   const [selected, setSelected] = useState<number>();
   const { register, handleSubmit } = useForm<FormData>();
   const apiCifra = axios.create({
-    baseURL: 'https://python-cifra.herokuapp.com/',
+    baseURL: process.env.NEXT_PUBLIC_CIFRA_URL,
   });
 
   useEffect(() => {
