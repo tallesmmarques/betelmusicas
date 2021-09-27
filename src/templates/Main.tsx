@@ -32,10 +32,12 @@ const Main: React.FC<IMainProps> = ({ meta, children }) => (
             <span>Criar Música</span>
           </button>
         </Link>
-        <button className="app-btn">
-          <FaCalendarDay />
-          <span>Eventos</span>
-        </button>
+        <Link href="/event/" passHref>
+          <button className="app-btn">
+            <FaCalendarDay />
+            <span>Eventos</span>
+          </button>
+        </Link>
         <Link href="/event/ministry" passHref>
           <button className="app-btn">
             <FaCalendarPlus />

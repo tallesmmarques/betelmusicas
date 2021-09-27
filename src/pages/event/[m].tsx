@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import { BiSelectMultiple } from 'react-icons/bi';
 import { FaSearch } from 'react-icons/fa';
 
-import Card from '../../components/card';
+import CardMinistry from '../../components/cardMinistry';
 import { Meta } from '../../layout/Meta';
 import { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
@@ -42,6 +44,29 @@ const SelectMusics = ({
   musics,
   ministry,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { register, handleSubmit, watch, setValue } = useForm();
+  const [selecteds, setSelecteds] = useState<{ [key: string]: boolean }>({});
+  const router = useRouter();
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setSelecteds(values);
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [watch]);
+  const onSubmit = (data: { [key: string]: boolean }[]) => {
+    const musicsString = Object.entries(data)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+      .join('-');
+    router.push({
+      pathname: '/event/create',
+      query: { l: musicsString, m: ministry },
+    });
+  };
+
   return (
     <Main
       meta={
@@ -52,10 +77,10 @@ const SelectMusics = ({
       }
     >
       <div className="min-h-screen flex flex-col bg-gray-50 pb-12">
-        <header className="bg-sky-600 pt-12 pb-20 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
+        <header className="bg-sky-600 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
           <BiSelectMultiple className="mx-auto text-6xl text-gray-100" />
           <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-100">
-            Selecionar Músicas para {ministry}
+            Selecionar Músicas
           </h1>
           <p className="text-center mt-1 text-sm text-gray-200 dark:text-gray-50">
             Primeiro selecione as músicas que serão tocadas no evento
@@ -74,12 +99,45 @@ const SelectMusics = ({
             />
           </div>
         </header>
-        <main className="px-6 -mt-10">
-          <div className="space-y-4 w-full sm:max-w-lg flex flex-col items-center mx-auto">
+        <main className="px-6 mt-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 w-full sm:max-w-lg flex flex-col items-center mx-auto"
+          >
+            {Object.entries(selecteds)
+              .filter(([_, value]) => value)
+              .reduce((p, c) => p || c[1], false) && (
+              <div className="w-full space-y-3 flex flex-col mb-8">
+                <h1 className="text-xl font-semibold text-gray-900">
+                  Selecionadas
+                </h1>
+                {musics
+                  .filter((music) => watch(`${music.id}`))
+                  .map((music) => (
+                    <CardMinistry
+                      key={music.id}
+                      music={music}
+                      ministry={ministry}
+                      isInput={false}
+                      setValue={setValue}
+                    />
+                  ))}
+                <button className="btn btn-primary" type="submit">
+                  Confirmar
+                </button>
+              </div>
+            )}
             {musics.map((music) => (
-              <Card key={music.id} music={music} />
+              <CardMinistry
+                key={music.id}
+                register={register}
+                music={music}
+                ministry={ministry}
+                isInput={true}
+                setValue={setValue}
+              />
             ))}
-          </div>
+          </form>
         </main>
       </div>
     </Main>

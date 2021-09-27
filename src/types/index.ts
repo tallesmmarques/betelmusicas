@@ -15,3 +15,11 @@ export interface IMusic {
     }
   ];
 }
+
+export interface IEvent {
+  id: number;
+  title: string;
+  date: Date | string;
+  ministry: string;
+  musics: IMusic[];
+}
