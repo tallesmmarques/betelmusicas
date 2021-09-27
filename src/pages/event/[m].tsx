@@ -1,46 +1,64 @@
 import React from 'react';
 
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { FaBible, FaSearch } from 'react-icons/fa';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { BiSelectMultiple } from 'react-icons/bi';
+import { FaSearch } from 'react-icons/fa';
 
-import Card from '../components/card';
-import { Meta } from '../layout/Meta';
-import { fetcher } from '../services/api';
-import { Main } from '../templates/Main';
-import { IMusic } from '../types';
+import Card from '../../components/card';
+import { Meta } from '../../layout/Meta';
+import { fetcher } from '../../services/api';
+import { Main } from '../../templates/Main';
+import { IMusic } from '../../types';
+import { ministriesNames } from '../../utils/definitions';
 
 interface Props {
   musics: IMusic[];
+  ministry: string;
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticPaths: GetStaticPaths<{ m: string }> = () => {
+  const params = ministriesNames.map((name) => ({
+    params: { m: name },
+  }));
+  return {
+    paths: params,
+    fallback: false,
+  };
+};
+export const getStaticProps: GetStaticProps<Props, { m: string }> = async ({
+  params,
+}) => {
   const musics: IMusic[] = await fetcher('music');
   return {
     props: {
       musics,
+      ministry: params?.m ? params.m : '',
     },
     revalidate: 10,
   };
 };
 
-const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const SelectMusics = ({
+  musics,
+  ministry,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Main
       meta={
         <Meta
-          title="Betel Músicas"
-          description="Coletânia de músicas e gerenciamento de eventos"
+          title="Selecionar Ministério"
+          description="Selecionar músicas para criação de um evento"
         />
       }
     >
       <div className="min-h-screen flex flex-col bg-gray-50 pb-12">
         <header className="bg-sky-600 pt-12 pb-20 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
-          <FaBible className="mx-auto text-6xl text-gray-100" />
+          <BiSelectMultiple className="mx-auto text-6xl text-gray-100" />
           <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-100">
-            Betel Músicas
+            Selecionar Músicas para {ministry}
           </h1>
-          <p className="text-center text-sm text-gray-200 dark:text-gray-50">
-            Você adora e a Som Livre toca
+          <p className="text-center mt-1 text-sm text-gray-200 dark:text-gray-50">
+            Primeiro selecione as músicas que serão tocadas no evento
           </p>
 
           <div className="relative mt-8 rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
@@ -68,4 +86,4 @@ const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
   );
 };
 
-export default Home;
+export default SelectMusics;

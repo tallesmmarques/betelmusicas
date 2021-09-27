@@ -85,7 +85,7 @@ a:hover {
 }
 .app-btn {
   @apply flex-1 text-lg text-gray-50
-  flex items-center flex-col p-2 pt-3
+  flex items-center flex-col p-1 pt-3
 }
 .app-btn span {
   @apply font-light text-2xs pt-2
