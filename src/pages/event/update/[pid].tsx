@@ -108,8 +108,8 @@ const UpdateEvent = ({
     <Main
       meta={
         <Meta
-          title="Atualizar Música"
-          description="Coletânia de músicas e gerenciamento de eventos"
+          title="Atualizar Evento"
+          description="Coletânea de músicas e gerenciamento de eventos"
         />
       }
     >

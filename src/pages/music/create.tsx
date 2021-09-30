@@ -58,7 +58,7 @@ const CreateMusic = () => {
       meta={
         <Meta
           title="Criar Música"
-          description="Coletânia de músicas e gerenciamento de eventos"
+          description="Coletânea de músicas e gerenciamento de eventos"
         />
       }
     >

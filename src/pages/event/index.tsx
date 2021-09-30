@@ -5,7 +5,6 @@ import { ptBR } from 'date-fns/locale';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { BiSelectMultiple } from 'react-icons/bi';
-import { FaSearch } from 'react-icons/fa';
 import { MdCheck, MdEdit } from 'react-icons/md';
 
 import CardMinistry from '../../components/cardMinistry';
@@ -47,7 +46,7 @@ const EventList = ({
     <Main
       meta={
         <Meta
-          title="Selecionar Ministério"
+          title="Eventos Betel"
           description="Selecionar músicas para criação de um evento"
         />
       }
@@ -61,19 +60,6 @@ const EventList = ({
           <p className="text-center mt-1 text-sm text-gray-200 dark:text-gray-50">
             Datas e músicas possíveis para cultos
           </p>
-
-          <div className="relative mt-8 rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500">
-                <FaSearch />
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="Pesquisar por música"
-              className="py-2 focus:ring-0 outline-none block w-full pl-10 pr-3 rounded-md"
-            />
-          </div>
         </header>
         <main className="px-6 mt-6 w-full mx-auto sm:max-w-lg space-y-6">
           {events.map((event) => (

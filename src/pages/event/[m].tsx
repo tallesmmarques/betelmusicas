@@ -4,14 +4,15 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { BiSelectMultiple } from 'react-icons/bi';
-import { FaSearch } from 'react-icons/fa';
+import { FaArrowUp } from 'react-icons/fa';
 
 import CardMinistry from '../../components/cardMinistry';
+import SearchBar from '../../components/searchBar';
 import { Meta } from '../../layout/Meta';
 import { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
 import { IMusic } from '../../types';
-import { ministriesNames } from '../../utils/definitions';
+import { genders, ministriesNames } from '../../utils/definitions';
 
 interface Props {
   musics: IMusic[];
@@ -46,6 +47,9 @@ const SelectMusics = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { register, handleSubmit, watch, setValue } = useForm();
   const [selecteds, setSelecteds] = useState<{ [key: string]: boolean }>({});
+  const [filterGenders, setFilterGenders] = useState<string[]>(genders);
+  const [search, setSearch] = useState('');
+
   const router = useRouter();
 
   useEffect(() => {
@@ -63,6 +67,15 @@ const SelectMusics = ({
     }
   }, [router.query.c, setValue]);
 
+  const filter = (allMusics: IMusic[]): IMusic[] => {
+    return allMusics
+      .filter(
+        (music) =>
+          music.name.toLowerCase().includes(search.toLowerCase()) ||
+          music.author.toLowerCase().includes(search.toLowerCase())
+      )
+      .filter((m) => filterGenders.includes(m.gender));
+  };
   const onSubmit = (data: { [key: string]: boolean }[]) => {
     const musicsString = Object.entries(data)
       .filter(([_, value]) => value)
@@ -85,7 +98,7 @@ const SelectMusics = ({
     <Main
       meta={
         <Meta
-          title="Selecionar Ministério"
+          title="Selecionar Músicas"
           description="Selecionar músicas para criação de um evento"
         />
       }
@@ -100,18 +113,7 @@ const SelectMusics = ({
             Primeiro selecione as músicas que serão tocadas no evento
           </p>
 
-          <div className="relative mt-8 rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500">
-                <FaSearch />
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="Pesquisar por música"
-              className="py-2 focus:ring-0 outline-none block w-full pl-10 pr-3 rounded-md"
-            />
-          </div>
+          <SearchBar setFilter={setFilterGenders} setSearch={setSearch} />
         </header>
         <main className="px-6 mt-6">
           <form
@@ -141,7 +143,7 @@ const SelectMusics = ({
                 </button>
               </div>
             )}
-            {musics.map((music) => (
+            {filter(musics).map((music) => (
               <CardMinistry
                 key={music.id}
                 register={register}
@@ -153,6 +155,14 @@ const SelectMusics = ({
             ))}
           </form>
         </main>
+        <button
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          className="fixed bottom-20 right-4 p-3 rounded shadow btn-primary"
+        >
+          <FaArrowUp />
+        </button>
       </div>
     </Main>
   );

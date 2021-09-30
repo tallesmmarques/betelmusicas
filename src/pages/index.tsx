@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { FaBible, FaSearch } from 'react-icons/fa';
+import { FaArrowUp, FaBible } from 'react-icons/fa';
 
 import Card from '../components/card';
+import SearchBar from '../components/searchBar';
 import { Meta } from '../layout/Meta';
 import { fetcher } from '../services/api';
 import { Main } from '../templates/Main';
 import { IMusic } from '../types';
+import { genders } from '../utils/definitions';
 
 interface Props {
   musics: IMusic[];
@@ -24,12 +26,25 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [filterGenders, setFilterGenders] = useState<string[]>(genders);
+  const [search, setSearch] = useState('');
+
+  const filter = (allMusics: IMusic[]): IMusic[] => {
+    return allMusics
+      .filter(
+        (music) =>
+          music.name.toLowerCase().includes(search.toLowerCase()) ||
+          music.author.toLowerCase().includes(search.toLowerCase())
+      )
+      .filter((m) => filterGenders.includes(m.gender));
+  };
+
   return (
     <Main
       meta={
         <Meta
           title="Betel Músicas"
-          description="Coletânia de músicas e gerenciamento de eventos"
+          description="Coletânea de músicas e gerenciamento de eventos"
         />
       }
     >
@@ -40,29 +55,26 @@ const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
             Betel Músicas
           </h1>
           <p className="text-center text-sm text-gray-200 dark:text-gray-50">
-            Você adora e a Som Livre toca
+            Lista de Louvore e tons respectivos
           </p>
 
-          <div className="relative mt-8 rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500">
-                <FaSearch />
-              </span>
-            </div>
-            <input
-              type="text"
-              placeholder="Pesquisar por música"
-              className="py-2 focus:ring-0 outline-none block w-full pl-10 pr-3 rounded-md"
-            />
-          </div>
+          <SearchBar setFilter={setFilterGenders} setSearch={setSearch} />
         </header>
         <main className="px-6 -mt-10">
           <div className="space-y-4 w-full sm:max-w-lg flex flex-col items-center mx-auto">
-            {musics.map((music) => (
+            {filter(musics).map((music) => (
               <Card key={music.id} music={music} />
             ))}
           </div>
         </main>
+        <button
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+          className="fixed bottom-20 right-4 p-3 rounded shadow btn-primary"
+        >
+          <FaArrowUp />
+        </button>
       </div>
     </Main>
   );

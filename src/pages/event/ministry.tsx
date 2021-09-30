@@ -21,7 +21,7 @@ const SelectMinistry = () => {
     <Main
       meta={
         <Meta
-          title="Selecionar Músicas"
+          title="Selecionar Ministrante"
           description="Selecionar músicas para criação de um evento"
         />
       }

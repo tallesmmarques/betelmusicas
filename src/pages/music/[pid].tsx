@@ -131,7 +131,7 @@ const UpdateMusic = ({
       meta={
         <Meta
           title="Atualizar Música"
-          description="Coletânia de músicas e gerenciamento de eventos"
+          description="Coletânea de músicas e gerenciamento de eventos"
         />
       }
     >

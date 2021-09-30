@@ -2,11 +2,11 @@ import React from 'react';
 
 import Link from 'next/link';
 import {
+  FaMusic,
+  FaPlusSquare,
   FaCalendarDay,
   FaCalendarPlus,
   FaMoon,
-  FaMusic,
-  FaPlusSquare,
 } from 'react-icons/fa';
 
 interface IMainProps {
@@ -14,10 +14,10 @@ interface IMainProps {
 }
 
 const Main: React.FC<IMainProps> = ({ meta, children }) => (
-  <div className="antialiased min-h-screen w-screen text-gray-50">
+  <div className="antialiased min-h-screen w-full text-gray-50">
     {meta}
 
-    <div className="">
+    <div className="text-black">
       <div className="mb-10">{children}</div>
       <div className="app-bar">
         <Link href="/" passHref>
