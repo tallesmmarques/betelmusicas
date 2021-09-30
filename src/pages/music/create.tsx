@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { FaMusic } from 'react-icons/fa';
 import { IoFlash } from 'react-icons/io5';
 
+import Divider from '../../components/diver';
 import SearchMusic from '../../components/searchMusic';
 import { Meta } from '../../layout/Meta';
 import api from '../../services/api';
@@ -62,14 +63,14 @@ const CreateMusic = () => {
         />
       }
     >
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <FaMusic className="mx-auto text-5xl text-sky-600" />
-            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900">
+            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900 dark:text-gray-100">
               Criar Nova Música
             </h2>
-            <p className="mt-2 text-sm text-gray-600 text-center">
+            <p className="mt-2 text-sm text-gray-600 text-center dark:text-gray-300">
               por favor verifique se a música já não foi criada
             </p>
           </div>
@@ -77,7 +78,7 @@ const CreateMusic = () => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
-            className="flex flex-col bg-white border shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
+            className="flex flex-col bg-white dark:bg-gray-700 border dark:border-none shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
           >
             <div className="field">
               <label>
@@ -144,13 +145,7 @@ const CreateMusic = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-center">
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-                <p className="px-2 text-gray-500 font-medium text-sm">
-                  Tonalidade da música
-                </p>
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-              </div>
+              <Divider text="Tonalidade da música" />
               <div className="flex space-x-3 mt-4">
                 {ministriesNames.map((ministry) => (
                   <div className="field" key={ministry}>

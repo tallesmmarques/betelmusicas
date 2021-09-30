@@ -20,7 +20,10 @@ const ResultsList: React.FC<{
       {results.map((music) => {
         const [title, author] = music.name.split(' - ');
         return (
-          <div key={music.id} className="p-2 border shadow-sm rounded">
+          <div
+            key={music.id}
+            className="p-2 border dark:border-none dark:bg-gray-600 shadow-sm rounded"
+          >
             <label className="flex items-center">
               <input
                 type="radio"
@@ -29,8 +32,12 @@ const ResultsList: React.FC<{
                 value={music.id}
               />
               <div>
-                <p className="text-lg font-semibold text-gray-900">{title}</p>
-                <p className="text-sm text-gray-500">{author}</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  {title}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-300">
+                  {author}
+                </p>
               </div>
             </label>
           </div>

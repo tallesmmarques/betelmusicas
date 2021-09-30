@@ -67,9 +67,9 @@ const SearchBar: React.FC<{
   return (
     <div>
       <div className="flex mx-auto w-full sm:max-w-lg space-x-3 mt-8">
-        <div className="relative rounded-md bg-white border shadow-sm w-full flex-1">
+        <div className="relative rounded-md bg-white dark:bg-gray-600 border dark:border-none shadow-sm w-full flex-1">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500">
+            <span className="text-gray-500 dark:text-gray-300">
               <FaSearch />
             </span>
           </div>
@@ -77,12 +77,12 @@ const SearchBar: React.FC<{
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="Pesquisar por música"
-            className="py-2 focus:ring-0 outline-none block w-full pl-10 pr-3 rounded-md"
+            className="py-2 focus:ring-0 outline-none dark:bg-gray-600 dark:text-gray-100 block w-full pl-10 pr-3 rounded-md"
           />
         </div>
         <button
           onClick={openFilter}
-          className="bg-white border shadow-sm rounded-md text-gray-500
+          className="bg-white dark:bg-gray-600 border dark:border-none shadow-sm rounded-md text-gray-500 dark:text-gray-200
          active:bg-gray-200 text-lg py-2 px-3"
         >
           <FiFilter />
@@ -94,13 +94,13 @@ const SearchBar: React.FC<{
             className="bg-black bg-opacity-50 h-screen w-screen flex items-start
         justify-center overflow-y-scroll pt-12 pb-24"
           >
-            <div className="bg-white rounded-md shadow-lg mx-auto w-11/12 md:w-1/3">
+            <div className="bg-white dark:bg-gray-700 rounded-md shadow-lg mx-auto w-11/12 md:w-1/3">
               <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-3">
-                <h2 className="text-lg text-gray-900 font-semibold">
+                <h2 className="text-lg text-gray-900 dark:text-gray-100 font-semibold">
                   Filtrar músicas
                 </h2>
                 <div>
-                  <div className="mt-1">
+                  <div className="mt-1 dark:text-gray-200">
                     <label>
                       <input
                         checked={isAllChecked}
@@ -112,7 +112,7 @@ const SearchBar: React.FC<{
                     </label>
                   </div>
                   {genders.map((gender) => (
-                    <div className="mt-1" key={gender}>
+                    <div className="mt-1 dark:text-gray-200" key={gender}>
                       <label>
                         <input
                           className="mr-3"

@@ -75,12 +75,15 @@ const SearchMusic: React.FC<Props> = ({ isOpen, close, setValue }) => {
         className="bg-black bg-opacity-50 h-screen w-full flex items-start
         justify-center overflow-y-scroll pt-12 pb-24"
       >
-        <div className="bg-white rounded-md shadow-lg mx-auto w-11/12 md:w-1/3">
+        <div className="bg-white dark:bg-gray-700 rounded-md shadow-lg mx-auto w-11/12 md:w-1/3">
           <div className="flex justify-between items-center">
-            <h3 className="font-semibold flex-1 text-gray-900 px-4 py-4 text-xl">
+            <h3 className="font-semibold flex-1 text-gray-900 dark:text-gray-100 px-4 py-4 text-xl">
               Pesquisar por Música
             </h3>
-            <button className="text-gray-900 text-xl p-2" onClick={close}>
+            <button
+              className="text-gray-900 dark:text-gray-100 text-xl p-2"
+              onClick={close}
+            >
               <IoClose />
             </button>
           </div>

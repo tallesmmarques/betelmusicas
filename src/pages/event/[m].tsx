@@ -103,8 +103,8 @@ const SelectMusics = ({
         />
       }
     >
-      <div className="min-h-screen flex flex-col bg-gray-50 pb-12">
-        <header className="bg-sky-600 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800 pb-12">
+        <header className="bg-sky-600 dark:bg-gray-900 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
           <BiSelectMultiple className="mx-auto text-6xl text-gray-100" />
           <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-100">
             Selecionar Músicas
@@ -124,7 +124,7 @@ const SelectMusics = ({
               .filter(([_, value]) => value)
               .reduce((p, c) => p || c[1], false) && (
               <div className="w-full space-y-3 flex flex-col mb-8">
-                <h1 className="text-xl font-semibold text-gray-900">
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                   Selecionadas
                 </h1>
                 {musics
@@ -159,7 +159,7 @@ const SelectMusics = ({
           onClick={() => {
             window.scrollTo(0, 0);
           }}
-          className="fixed bottom-20 right-4 p-3 rounded shadow btn-primary"
+          className="fixed bottom-20 right-4 p-3 rounded shadow btn-primary dark:bg-gray-900"
         >
           <FaArrowUp />
         </button>

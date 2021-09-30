@@ -78,11 +78,11 @@ const CreateEvent = ({ musics, ministry }: Props) => {
         />
       }
     >
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <RiFileList3Line className="mx-auto text-6xl text-sky-600" />
-            <h2 className="font-extrabold text-3xl text-center mt-4 text-gray-900">
+            <h2 className="font-extrabold text-3xl text-center mt-4 text-gray-900 dark:text-gray-100">
               Criar Novo Evento
             </h2>
             {/* <p className="mt-2 text-sm text-gray-600 text-center">
@@ -93,7 +93,7 @@ const CreateEvent = ({ musics, ministry }: Props) => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
-            className="flex flex-col bg-white border shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
+            className="flex flex-col bg-white dark:bg-gray-700 border dark:border-none shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
           >
             <div className="field">
               <label>
@@ -125,7 +125,10 @@ const CreateEvent = ({ musics, ministry }: Props) => {
             <Divider text="Músicas adicionadas" />
             <ul className="space-y-1">
               {musics.map((music) => (
-                <li key={music.id} className="text-gray-700 space-x-2 text-sm">
+                <li
+                  key={music.id}
+                  className="text-gray-700 dark:text-gray-200 space-x-2 text-sm"
+                >
                   <b>{music.name}</b>
                   <span>- {music.author}</span>
                 </li>

@@ -51,8 +51,8 @@ const EventList = ({
         />
       }
     >
-      <div className="min-h-screen flex flex-col bg-gray-50 pb-12">
-        <header className="bg-sky-600 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800 pb-12">
+        <header className="bg-sky-600 dark:bg-gray-900 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
           <BiSelectMultiple className="mx-auto text-6xl text-gray-100" />
           <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-100">
             Eventos e Cultos
@@ -72,10 +72,10 @@ const EventList = ({
                       : 'text-red-500'
                   }`}
                 >
-                  <h2 className="text-xl font-semibold">
+                  <h2 className="text-xl font-semibold dark:text-gray-100">
                     {event.ministry} - {event.title}
                   </h2>
-                  <p className="text-sm">
+                  <p className="text-sm dark:text-gray-300">
                     {format(new Date(event.date), 'PPPP', { locale: ptBR })}
                   </p>
                 </div>

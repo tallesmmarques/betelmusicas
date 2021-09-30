@@ -36,7 +36,7 @@ const Card: React.FC<{ music: IMusic }> = ({ music }) => {
           >
             {music.gender}
           </p>
-          <h2 className="font-semibold text-gray-900 dark:text-gray-50 text-lg">
+          <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">
             {music.name}
           </h2>
           <p className="text-gray-500 dark:text-gray-300 text-sm">

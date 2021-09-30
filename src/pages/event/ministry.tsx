@@ -26,14 +26,14 @@ const SelectMinistry = () => {
         />
       }
     >
-      <div className="min-h-screen flex flex-col bg-gray-50 pb-12">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800 pb-12">
         <div className="flex flex-col items-center justify-center min-h-full w-full absolute">
           <div>
             <BsFillPersonLinesFill className="mx-auto text-5xl text-sky-600" />
-            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900 px-4">
+            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900 dark:text-gray-100 px-4">
               Selecionar Ministrante
             </h2>
-            <p className="mt-2 text-sm text-gray-600 text-center">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 text-center">
               Quem irá cantar neste evento
             </p>
           </div>
@@ -44,11 +44,11 @@ const SelectMinistry = () => {
             <select
               required
               {...register('ministry')}
-              className="px-4 py-2 rounded-md bg-white border shadow
-                text-gray-800 w-full focus:border-sky-500 focus:outline-none"
+              className="px-4 py-2 rounded-md bg-white dark:bg-gray-600 border dark:border-none shadow
+                text-gray-800 dark:text-gray-200 w-full focus:border-sky-500 focus:outline-none"
             >
               <option value="" disabled selected hidden>
-                Selecionar ministério
+                Selecionar ministrante
               </option>
               {ministriesNames.map((mi) => (
                 <option key={mi} value={mi}>
