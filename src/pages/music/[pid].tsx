@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
 import React from 'react';
 
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -114,9 +116,11 @@ const UpdateMusic = ({
   };
 
   const handleDelete = () => {
-    api.delete(`music/${oldMusic.id}`).then(() => {
-      router.push('/');
-    });
+    if (confirm('Excluir Música? Está operação não poderá ser desfeita!')) {
+      api.delete(`music/${oldMusic.id}`).then(() => {
+        router.push('/');
+      });
+    }
   };
 
   /* -------------------------------------------------------------------------- */

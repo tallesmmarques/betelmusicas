@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { RiFileList3Line } from 'react-icons/ri';
 
+import Divider from '../../components/diver';
 import { Meta } from '../../layout/Meta';
 import api, { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
@@ -121,9 +122,7 @@ const CreateEvent = ({ musics, ministry }: Props) => {
               </label>
             </div>
 
-            <h2 className="text-lg text-gray-800 font-semibold pt-3">
-              Músicas adicionadas
-            </h2>
+            <Divider text="Músicas adicionadas" />
             <ul className="space-y-1">
               {musics.map((music) => (
                 <li key={music.id} className="text-gray-700 space-x-2 text-sm">
@@ -134,9 +133,18 @@ const CreateEvent = ({ musics, ministry }: Props) => {
             </ul>
 
             <div className="flex space-x-3 pt-4">
-              <Link href="/" passHref>
+              <Link
+                href={{
+                  pathname: '/event/[m]',
+                  query: {
+                    m: ministry,
+                    c: musics.map((music) => music.id).join('-'),
+                  },
+                }}
+                passHref
+              >
                 <button type="button" className="btn btn-secondary">
-                  Cancelar
+                  Voltar
                 </button>
               </Link>
               <button

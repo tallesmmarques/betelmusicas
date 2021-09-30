@@ -31,7 +31,7 @@ const SelectMinistry = () => {
           <div>
             <BsFillPersonLinesFill className="mx-auto text-5xl text-sky-600" />
             <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900 px-4">
-              Selecionar Ministério
+              Selecionar Ministrante
             </h2>
             <p className="mt-2 text-sm text-gray-600 text-center">
               Quem irá cantar neste evento

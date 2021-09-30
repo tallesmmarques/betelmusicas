@@ -47,6 +47,11 @@ a:hover {
   focus:outline-none focus:ring-2 focus:ring-offset-2
   focus:ring-gray-500;
 }
+.btn-green {
+  @apply bg-green-500 hover:bg-green-600 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-green-500;
+}
 .btn-delete {
   @apply relative flex items-center justify-center
   px-4 rounded-md text-lg font-semibold

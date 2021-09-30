@@ -3,12 +3,14 @@ import React from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
 import { BiSelectMultiple } from 'react-icons/bi';
 import { FaSearch } from 'react-icons/fa';
+import { MdCheck, MdEdit } from 'react-icons/md';
 
 import CardMinistry from '../../components/cardMinistry';
 import { Meta } from '../../layout/Meta';
-import { fetcher } from '../../services/api';
+import api, { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
 import { IEvent } from '../../types';
 
@@ -22,13 +24,25 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     props: {
       events,
     },
-    revalidate: 10,
+    revalidate: 5,
   };
 };
 
 const EventList = ({
   events,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+  const onPlayed = (id: number) => {
+    api.patch(`event/played/${id}`).then(() => {
+      api.delete(`event/${id}`).then(() => {
+        router.push('/');
+      });
+    });
+  };
+  const onEdit = (id: number) => {
+    router.push(`/event/update/${id}`);
+  };
+
   return (
     <Main
       meta={
@@ -42,10 +56,10 @@ const EventList = ({
         <header className="bg-sky-600 pt-12 pb-8 px-6 sm:px-6 lg:px-8 rounded-b-lg shadow-sm">
           <BiSelectMultiple className="mx-auto text-6xl text-gray-100" />
           <h1 className="text-3xl mt-6 text-center font-extrabold text-gray-100">
-            Selecionar Músicas
+            Eventos e Cultos
           </h1>
           <p className="text-center mt-1 text-sm text-gray-200 dark:text-gray-50">
-            Primeiro selecione as músicas que serão tocadas no evento
+            Datas e músicas possíveis para cultos
           </p>
 
           <div className="relative mt-8 rounded-md bg-white border shadow-sm w-full sm:max-w-lg mx-auto">
@@ -64,9 +78,9 @@ const EventList = ({
         <main className="px-6 mt-6 w-full mx-auto sm:max-w-lg space-y-6">
           {events.map((event) => (
             <div key={event.id} className="">
-              <div className="flex">
+              <div className="flex items-start">
                 <div
-                  className={`text-sm ${
+                  className={`text-sm flex-1 ${
                     new Date() < new Date(event.date)
                       ? 'text-gray-800'
                       : 'text-red-500'
@@ -78,6 +92,20 @@ const EventList = ({
                   <p className="text-sm">
                     {format(new Date(event.date), 'PPPP', { locale: ptBR })}
                   </p>
+                </div>
+                <div className="space-x-2 flex flex-row">
+                  <button
+                    onClick={() => onPlayed(event.id)}
+                    className="btn-green p-2 rounded-md"
+                  >
+                    <MdCheck />
+                  </button>
+                  <button
+                    onClick={() => onEdit(event.id)}
+                    className="btn-info p-2 rounded-md"
+                  >
+                    <MdEdit />
+                  </button>
                 </div>
               </div>
 

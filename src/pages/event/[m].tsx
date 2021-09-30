@@ -56,15 +56,29 @@ const SelectMusics = ({
       subscription.unsubscribe();
     };
   }, [watch]);
+
+  useEffect(() => {
+    if (router.query.c && !Array.isArray(router.query.c)) {
+      router.query.c.split('-').map((id) => setValue(id, true));
+    }
+  }, [router.query.c, setValue]);
+
   const onSubmit = (data: { [key: string]: boolean }[]) => {
     const musicsString = Object.entries(data)
       .filter(([_, value]) => value)
       .map(([key, _]) => key)
       .join('-');
-    router.push({
-      pathname: '/event/create',
-      query: { l: musicsString, m: ministry },
-    });
+    if (router.query.a && !Array.isArray(router.query.a)) {
+      router.push({
+        pathname: router.query.a,
+        query: { l: musicsString, m: ministry },
+      });
+    } else {
+      router.push({
+        pathname: '/event/create',
+        query: { l: musicsString, m: ministry },
+      });
+    }
   };
 
   return (

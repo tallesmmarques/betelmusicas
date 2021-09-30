@@ -19,7 +19,7 @@ export interface IMusic {
 export interface IEvent {
   id: number;
   title: string;
-  date: Date | string;
+  date: string;
   ministry: string;
   musics: IMusic[];
 }

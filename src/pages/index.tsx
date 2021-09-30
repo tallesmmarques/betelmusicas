@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     props: {
       musics,
     },
-    revalidate: 10,
+    revalidate: 5,
   };
 };
 
