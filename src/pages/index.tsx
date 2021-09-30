@@ -44,7 +44,7 @@ const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
       meta={
         <Meta
           title="Betel Músicas"
-          description="Coletânea de músicas e gerenciamento de eventos"
+          description="Coletânea de músicas e gerenciamento de eventos para a Batista Betel"
         />
       }
     >
@@ -55,7 +55,7 @@ const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
             Betel Músicas
           </h1>
           <p className="text-center text-sm text-gray-200 dark:text-gray-50">
-            Lista de Louvore e tons respectivos
+            Mais de {musics.length} músicas e tons
           </p>
 
           <SearchBar setFilter={setFilterGenders} setSearch={setSearch} />
