@@ -9,6 +9,14 @@ export const genders = [
   'Graça',
   'Worship',
 ].sort();
+export const fastGenders = ['Animada', 'Cantor Cristão', 'Comunhão', 'Corinho'];
+export const slowGenders = [
+  'Adoração',
+  'Clamor',
+  'Gratidão',
+  'Graça',
+  'Worship',
+];
 
 export const gendersColors: { [key: string]: string[] | any } = {
   Corinho: ['bg-red-500', 'text-red-500'],

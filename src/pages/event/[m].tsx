@@ -12,7 +12,12 @@ import { Meta } from '../../layout/Meta';
 import { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
 import { IMusic } from '../../types';
-import { genders, ministriesNames } from '../../utils/definitions';
+import {
+  fastGenders,
+  genders,
+  ministriesNames,
+  slowGenders,
+} from '../../utils/definitions';
 
 interface Props {
   musics: IMusic[];
@@ -67,14 +72,17 @@ const SelectMusics = ({
     }
   }, [router.query.c, setValue]);
 
-  const filter = (allMusics: IMusic[]): IMusic[] => {
+  const filter = (
+    allMusics: IMusic[],
+    localFilterGenders: string[]
+  ): IMusic[] => {
     return allMusics
       .filter(
         (music) =>
           music.name.toLowerCase().includes(search.toLowerCase()) ||
           music.author.toLowerCase().includes(search.toLowerCase())
       )
-      .filter((m) => filterGenders.includes(m.gender));
+      .filter((m) => localFilterGenders.includes(m.gender));
   };
   const onSubmit = (data: { [key: string]: boolean }[]) => {
     const musicsString = Object.entries(data)
@@ -91,6 +99,35 @@ const SelectMusics = ({
         pathname: '/event/create',
         query: { l: musicsString, m: ministry },
       });
+    }
+  };
+  // const clearList = () => {
+  //   Object.keys(musics).forEach((key) => setValue(key, false));
+  // };
+  const getRandomInt = (min: number, max: number): number => {
+    const intmin = Math.ceil(min);
+    const intmax = Math.floor(max);
+    return Math.floor(Math.random() * (intmax - intmin)) + intmin;
+  };
+  const randomItem = () => {
+    const fast: IMusic[] = filter(musics, fastGenders);
+    const slow: IMusic[] = filter(musics, slowGenders);
+    const randomMusics: IMusic[] = [];
+
+    let i = getRandomInt(0, fast.length - 1);
+    let m = fast[i];
+    if (m !== undefined) {
+      randomMusics.push(m);
+    }
+    i = getRandomInt(0, slow.length - 1);
+    m = slow[i];
+    if (m !== undefined) {
+      randomMusics.push(m);
+    }
+    i = getRandomInt(0, fast.length - 1);
+
+    if (randomMusics.length > 0) {
+      randomMusics.forEach((music) => setValue(`${music.id}`, true));
     }
   };
 
@@ -143,7 +180,16 @@ const SelectMusics = ({
                 </button>
               </div>
             )}
-            {filter(musics).map((music) => (
+            <div className="flex flex-col w-full space-y-3">
+              <button
+                className="btn btn-info"
+                type="button"
+                onClick={() => randomItem()}
+              >
+                Sugerir duas músicas
+              </button>
+            </div>
+            {filter(musics, filterGenders).map((music) => (
               <CardMinistry
                 key={music.id}
                 register={register}
