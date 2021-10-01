@@ -1,6 +1,4 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-alert */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
@@ -10,6 +8,7 @@ import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import Divider from '../../../components/diver';
+import Modal from '../../../components/modal';
 import { Meta } from '../../../layout/Meta';
 import api, { fetcher } from '../../../services/api';
 import { Main } from '../../../templates/Main';
@@ -75,6 +74,7 @@ const UpdateEvent = ({
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: getInitialValues(oldEvent),
   });
+  const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
   /* -------------------------------------------------------------------------- */
@@ -94,11 +94,9 @@ const UpdateEvent = ({
   };
 
   const handleDelete = () => {
-    if (confirm('Excluir lista? Está operação não poderá ser desfeita!')) {
-      api.delete(`event/${oldEvent.id}`).then(() => {
-        router.push('/event');
-      });
-    }
+    api.delete(`event/${oldEvent.id}`).then(() => {
+      router.push('/event');
+    });
   };
 
   /* -------------------------------------------------------------------------- */
@@ -192,12 +190,40 @@ const UpdateEvent = ({
               <button type="submit" className="btn btn-primary">
                 Atualizar
               </button>
-              <button onClick={handleDelete} className="btn-delete">
+              <button
+                type="button"
+                onClick={() => setIsDeleting(true)}
+                className="btn-delete"
+              >
                 <RiDeleteBin6Line />
               </button>
             </div>
           </form>
         </div>
+        <Modal
+          isOpen={isDeleting}
+          title="Apagar evento"
+          onClose={() => setIsDeleting(false)}
+        >
+          <p className="dark:text-gray-200">
+            Está ação não poderá ser desfeita
+          </p>
+          <div className="flex w-full space-x-3 pt-6">
+            <button
+              onClick={() => setIsDeleting(false)}
+              className="btn btn-secondary"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDelete()}
+              className={`btn btn-red`}
+            >
+              Apagar
+            </button>
+          </div>
+        </Modal>
       </div>
     </Main>
   );

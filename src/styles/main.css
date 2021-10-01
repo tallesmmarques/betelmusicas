@@ -56,6 +56,11 @@ body {
   focus:outline-none focus:ring-2 focus:ring-offset-2
   focus:ring-green-500;
 }
+.btn-red {
+  @apply bg-red-500 hover:bg-red-600 text-white
+  focus:outline-none focus:ring-2 focus:ring-offset-2
+  focus:ring-red-500;
+}
 .btn-delete {
   @apply relative flex items-center justify-center
   px-4 rounded-md text-lg font-semibold

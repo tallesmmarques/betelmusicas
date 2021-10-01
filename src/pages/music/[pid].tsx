@@ -1,6 +1,4 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-alert */
-import React from 'react';
+import React, { useState } from 'react';
 
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
@@ -9,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
+import Divider from '../../components/diver';
+import Modal from '../../components/modal';
 import { Meta } from '../../layout/Meta';
 import api, { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
@@ -91,6 +91,7 @@ const UpdateMusic = ({
   const { register, handleSubmit } = useForm({
     defaultValues: getInitialValues(oldMusic),
   });
+  const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
   /* -------------------------------------------------------------------------- */
@@ -116,11 +117,9 @@ const UpdateMusic = ({
   };
 
   const handleDelete = () => {
-    if (confirm('Excluir Música? Está operação não poderá ser desfeita!')) {
-      api.delete(`music/${oldMusic.id}`).then(() => {
-        router.push('/');
-      });
-    }
+    api.delete(`music/${oldMusic.id}`).then(() => {
+      router.push('/');
+    });
   };
 
   /* -------------------------------------------------------------------------- */
@@ -135,14 +134,14 @@ const UpdateMusic = ({
         />
       }
     >
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <FaEdit className="mx-auto text-5xl text-sky-600" />
-            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900">
+            <h2 className="font-extrabold text-3xl text-center mt-6 text-gray-900 dark:text-gray-100">
               Atualizar {oldMusic.name}
             </h2>
-            <p className="mt-2 text-sm text-gray-600 text-center">
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 text-center">
               após a confirmação as alterações não poderão ser desfeitas
             </p>
           </div>
@@ -150,7 +149,7 @@ const UpdateMusic = ({
           <form
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
-            className="flex flex-col bg-white border shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
+            className="flex flex-col bg-white dark:bg-gray-700 border dark:border-none shadow-md rounded-md p-6 sm:p-8 space-y-3 sm:space-y-5"
           >
             <div className="field">
               <label>
@@ -203,13 +202,7 @@ const UpdateMusic = ({
             </div>
 
             <div>
-              <div className="flex items-center justify-center">
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-                <p className="px-2 text-gray-500 font-medium text-sm">
-                  Tonalidade da música
-                </p>
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-              </div>
+              <Divider text="Tonalidade da música" />
               <div className="flex space-x-3 mt-2">
                 {ministriesNames.map((ministry) => (
                   <div className="field" key={ministry}>
@@ -222,13 +215,7 @@ const UpdateMusic = ({
               </div>
             </div>
             <div>
-              <div className="flex items-center justify-center">
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-                <p className="px-2 text-gray-500 font-medium text-sm">
-                  Última vez tocada
-                </p>
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-              </div>
+              <Divider text="Última vez tocada" />
               <div className="flex space-y-1 mt-2 flex-col">
                 {ministriesNames.map((ministry) => (
                   <div className="field" key={ministry}>
@@ -241,13 +228,7 @@ const UpdateMusic = ({
               </div>
             </div>
             <div>
-              <div className="flex items-center justify-center">
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-                <p className="px-2 text-gray-500 font-medium text-sm">
-                  Vezes tocada
-                </p>
-                <div className="bg-gray-300 h-px flex-1 shadow-sm" />
-              </div>
+              <Divider text="Vezes tocada" />
               <div className="flex space-x-3 mt-2">
                 {ministriesNames.map((ministry) => (
                   <div className="field" key={ministry}>
@@ -269,12 +250,41 @@ const UpdateMusic = ({
               <button type="submit" className="btn btn-primary">
                 Atualizar
               </button>
-              <button onClick={handleDelete} className="btn-delete">
+              <button
+                onClick={() => setIsDeleting(true)}
+                type="button"
+                className="btn-delete"
+              >
                 <RiDeleteBin6Line />
               </button>
             </div>
           </form>
         </div>
+        <Modal
+          isOpen={isDeleting}
+          title="Apagar música"
+          onClose={() => setIsDeleting(false)}
+        >
+          <p className="dark:text-gray-200">
+            Todas as datas e tons referentes a está música não poderam ser
+            recuperados
+          </p>
+          <div className="flex w-full space-x-3 pt-6">
+            <button
+              onClick={() => setIsDeleting(false)}
+              className="btn btn-secondary"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDelete()}
+              className={`btn btn-red`}
+            >
+              Apagar
+            </button>
+          </div>
+        </Modal>
       </div>
     </Main>
   );
