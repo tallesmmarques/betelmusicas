@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { FaArrowUp, FaBible } from 'react-icons/fa';
 
 import Card from '../components/card';
@@ -15,17 +15,18 @@ interface Props {
   musics: IMusic[];
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const musics: IMusic[] = await fetcher('music');
   return {
     props: {
       musics,
     },
-    revalidate: 5,
   };
 };
 
-const Home = ({ musics }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = ({
+  musics,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [filterGenders, setFilterGenders] = useState<string[]>(genders);
   const [search, setSearch] = useState('');
 

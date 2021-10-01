@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { BiSelectMultiple } from 'react-icons/bi';
@@ -12,44 +12,28 @@ import { Meta } from '../../layout/Meta';
 import { fetcher } from '../../services/api';
 import { Main } from '../../templates/Main';
 import { IMusic } from '../../types';
-import {
-  fastGenders,
-  genders,
-  ministriesNames,
-  slowGenders,
-} from '../../utils/definitions';
+import { fastGenders, genders, slowGenders } from '../../utils/definitions';
 
 interface Props {
   musics: IMusic[];
   ministry: string;
 }
 
-export const getStaticPaths: GetStaticPaths<{ m: string }> = () => {
-  const params = ministriesNames.map((name) => ({
-    params: { m: name },
-  }));
-  return {
-    paths: params,
-    fallback: false,
+export const getServerSideProps: GetServerSideProps<Props, { m: string }> =
+  async ({ params }) => {
+    const musics: IMusic[] = await fetcher('music');
+    return {
+      props: {
+        musics,
+        ministry: params?.m ? params.m : '',
+      },
+    };
   };
-};
-export const getStaticProps: GetStaticProps<Props, { m: string }> = async ({
-  params,
-}) => {
-  const musics: IMusic[] = await fetcher('music');
-  return {
-    props: {
-      musics,
-      ministry: params?.m ? params.m : '',
-    },
-    revalidate: 10,
-  };
-};
 
 const SelectMusics = ({
   musics,
   ministry,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { register, handleSubmit, watch, setValue } = useForm();
   const [selecteds, setSelecteds] = useState<{ [key: string]: boolean }>({});
   const [filterGenders, setFilterGenders] = useState<string[]>(genders);
